@@ -19,11 +19,8 @@ class CodeSampler
 
   destroy: ->
     @$selector.each (index, el) ->
-      $source = $(el)
-      target = $(el).attr("data-code-sampler-target")
-      $target = $("##{target}")
-
-      $target.html("")
+      $target = $(el).next '.code-sample'
+      $target.remove()
 
 
 module.exports = CodeSampler

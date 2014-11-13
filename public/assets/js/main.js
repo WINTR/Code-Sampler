@@ -910,11 +910,9 @@ CodeSampler = (function() {
 
   CodeSampler.prototype.destroy = function() {
     return this.$selector.each(function(index, el) {
-      var $source, $target, target;
-      $source = $(el);
-      target = $(el).attr("data-code-sampler-target");
-      $target = $("#" + target);
-      return $target.html("");
+      var $target;
+      $target = $(el).next('.code-sample');
+      return $target.remove();
     });
   };
 
