@@ -2,7 +2,7 @@ beautifyHTML = require "./BeautifyHTML.js"
 
 class CodeSampler
   
-  selector: "[data-code-sampler-target]"
+  selector: "[data-code-sampler]"
   
   constructor: ->
     @$selector = $(@selector)
@@ -11,14 +11,11 @@ class CodeSampler
   update: ->
     @$selector.each (index, el) ->
       $source = $(el)
-      target = $(el).attr("data-code-sampler-target")
-      $target = $("##{target}")
-
       codeSnippet = $source.html().replace(/^\s+|\s+$/g, '')
       codeSnippet = beautifyHTML.html_beautify(codeSnippet, {wrap_line_length: 80})
-
-      $target.html("<pre><code></code></pre>")
+      $target = $("<pre class='code-sample'><code></code></pre>")
       $target.find("code").text codeSnippet
+      $target.insertAfter $source
 
   destroy: ->
     @$selector.each (index, el) ->

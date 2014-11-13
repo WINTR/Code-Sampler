@@ -887,7 +887,7 @@ var CodeSampler, beautifyHTML;
 beautifyHTML = require("./BeautifyHTML.js");
 
 CodeSampler = (function() {
-  CodeSampler.prototype.selector = "[data-code-sampler-target]";
+  CodeSampler.prototype.selector = "[data-code-sampler]";
 
   function CodeSampler() {
     this.$selector = $(this.selector);
@@ -896,16 +896,15 @@ CodeSampler = (function() {
 
   CodeSampler.prototype.update = function() {
     return this.$selector.each(function(index, el) {
-      var $source, $target, codeSnippet, target;
+      var $source, $target, codeSnippet;
       $source = $(el);
-      target = $(el).attr("data-code-sampler-target");
-      $target = $("#" + target);
       codeSnippet = $source.html().replace(/^\s+|\s+$/g, '');
       codeSnippet = beautifyHTML.html_beautify(codeSnippet, {
         wrap_line_length: 80
       });
-      $target.html("<pre><code></code></pre>");
-      return $target.find("code").text(codeSnippet);
+      $target = $("<pre class='code-sample'><code></code></pre>");
+      $target.find("code").text(codeSnippet);
+      return $target.insertAfter($source);
     });
   };
 
