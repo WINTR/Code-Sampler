@@ -896,15 +896,25 @@ CodeSampler = (function() {
 
   CodeSampler.prototype.update = function() {
     return this.$selector.each(function(index, el) {
-      var $source, $target, codeSnippet;
+      var $snippet, $source, $target, codeSnippet, insertAfter, target;
       $source = $(el);
+      target = $(el).data("code-sampler");
+      $target = $("#" + target);
+      if (!($(el).data("code-sampler").length > 0)) {
+        insertAfter = true;
+      }
       codeSnippet = $source.html().replace(/^\s+|\s+$/g, '');
       codeSnippet = beautifyHTML.html_beautify(codeSnippet, {
         wrap_line_length: 80
       });
-      $target = $("<pre class='code-sample'><code></code></pre>");
-      $target.find("code").text(codeSnippet);
-      return $target.insertAfter($source);
+      $snippet = $("<pre class='code-sample'><code></code></pre>");
+      $snippet.find("code").text(codeSnippet);
+      if (insertAfter) {
+        return $snippet.insertAfter($source);
+      } else {
+        console.log('send to target', $target);
+        return $target.append($snippet);
+      }
     });
   };
 
