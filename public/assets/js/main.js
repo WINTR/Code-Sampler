@@ -900,7 +900,7 @@ CodeSampler = (function() {
       $source = $(el);
       target = $(el).data("code-sampler");
       $target = $("#" + target);
-      if (!($(el).data("code-sampler").length > 0)) {
+      if (!(target.length > 0)) {
         insertAfter = true;
       }
       codeSnippet = $source.html().replace(/^\s+|\s+$/g, '');
@@ -912,7 +912,6 @@ CodeSampler = (function() {
       if (insertAfter) {
         return $snippet.insertAfter($source);
       } else {
-        console.log('send to target', $target);
         return $target.append($snippet);
       }
     });

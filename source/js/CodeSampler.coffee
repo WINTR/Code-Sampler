@@ -15,7 +15,7 @@ class CodeSampler
       target = $(el).data("code-sampler")
       $target = $("##{target}")
 
-      insertAfter = true unless $(el).data("code-sampler").length > 0
+      insertAfter = true unless target.length > 0
 
       codeSnippet = $source.html().replace(/^\s+|\s+$/g, '')
       codeSnippet = beautifyHTML.html_beautify(codeSnippet, {wrap_line_length: 80})
@@ -25,7 +25,6 @@ class CodeSampler
       if insertAfter
         $snippet.insertAfter $source
       else
-        console.log 'send to target', $target
         $target.append $snippet
 
   destroy: ->
